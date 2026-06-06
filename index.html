@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Holmes Park — Golf Scorecard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1a6b3a;
+      --green-light: #e8f5ee;
+      --green-mid: #2d8a52;
+      --gold: #c9a227;
+      --gold-light: #fdf6e3;
+      --red: #c0392b;
+      --red-light: #fdecea;
+      --blue: #1a5276;
+      --blue-light: #eaf0fb;
+      --gray: #6b7280;
+      --gray-light: #f3f4f6;
+      --border: #d1d5db;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --bg: #f9fafb;
+      --white: #ffffff;
+      --radius: 10px;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    header {
+      background: var(--green);
+      color: white;
+      text-align: center;
+      padding: 24px 16px 20px;
+    }
+    header h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+    header p { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+
+    .teams-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-bottom: 2px solid var(--border);
+    }
+    .team-label {
+      padding: 12px 16px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.3px;
+    }
+    .team-a { background: #1a5276; color: white; }
+    .team-b { background: #922b21; color: white; }
+    .team-a span, .team-b span { display: block; font-size: 11px; font-weight: 400; opacity: 0.85; margin-top: 2px; }
+
+    .section {
+      background: var(--white);
+      margin: 16px 12px 0;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--gray-light);
+    }
+    .section-header h2 { font-size: 14px; font-weight: 600; }
+    .section-header .badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .badge-gold { background: var(--gold-light); color: #7d6012; }
+    .badge-silver { background: var(--blue-light); color: var(--blue); }
+    .badge-bonus { background: #fdecea; color: var(--red); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead th {
+      padding: 8px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      background: var(--gray-light);
+      border-bottom: 1px solid var(--border);
+    }
+    tbody tr { border-bottom: 1px solid #f0f0f0; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody td { padding: 9px 6px; text-align: center; vertical-align: middle; }
+    tbody td:first-child { font-weight: 600; color: var(--text-muted); font-size: 13px; }
+
+    .subtotal-row td {
+      background: var(--gray-light);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text);
+      border-top: 1px solid var(--border);
+    }
+
+    .winner-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .winner-btn:active { transform: scale(0.92); }
+    .winner-btn.active-a { background: #1a5276; border-color: #1a5276; color: white; }
+    .winner-btn.active-b { background: #922b21; border-color: #922b21; color: white; }
+    .winner-btn.active-tie { background: var(--green); border-color: var(--green); color: white; }
+
+    .pts-cell { font-weight: 600; color: var(--green); font-size: 13px; }
+
+    /* Bonus section */
+    .bonus-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .bonus-team {
+      padding: 12px;
+      border-right: 1px solid var(--border);
+    }
+    .bonus-team:last-child { border-right: none; }
+    .bonus-team-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+      padding: 4px;
+      border-radius: 6px;
+    }
+    .team-a-label { background: #1a5276; color: white; }
+    .team-b-label { background: #922b21; color: white; }
+
+    .bonus-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 4px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .bonus-row:last-child { border-bottom: none; }
+    .bonus-row label { font-size: 13px; color: var(--text-muted); }
+    .bonus-counter {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .bonus-counter button {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .bonus-counter button:active { transform: scale(0.9); }
+    .bonus-counter .val {
+      font-weight: 700;
+      font-size: 16px;
+      min-width: 20px;
+      text-align: center;
+    }
+    .bonus-pts { font-size: 12px; color: var(--green); font-weight: 600; margin-top: 8px; text-align: center; }
+
+    /* Scoreboard */
+    .scoreboard {
+      background: var(--white);
+      margin: 16px 12px 0;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .scoreboard-header {
+      background: var(--green);
+      color: white;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+    .scoreboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .score-col {
+      padding: 16px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .score-col:last-child { border-right: none; }
+    .score-team-name { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .score-team-name.a { color: #1a5276; }
+    .score-team-name.b { color: #922b21; }
+    .score-total { font-size: 36px; font-weight: 800; line-height: 1; }
+    .score-breakdown { font-size: 11px; color: var(--text-muted); margin-top: 6px; line-height: 1.6; }
+
+    .winner-banner {
+      text-align: center;
+      padding: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      border-top: 1px solid var(--border);
+      background: var(--green-light);
+      color: var(--green);
+      display: none;
+    }
+    .winner-banner.show { display: block; }
+
+    /* Press tracker */
+    .press-section {
+      background: var(--white);
+      margin: 16px 12px 0;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .press-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .press-team {
+      padding: 14px 12px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .press-team:last-child { border-right: none; }
+    .press-team-name { font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+    .press-boxes {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+    .press-box {
+      width: 40px; height: 40px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      transition: all 0.15s;
+    }
+    .press-box:active { transform: scale(0.9); }
+    .press-box.used-a { background: #1a5276; border-color: #1a5276; color: white; }
+    .press-box.used-b { background: #922b21; border-color: #922b21; color: white; }
+
+    .reset-btn {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 28px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .reset-btn:hover { border-color: var(--red); color: var(--red); }
+
+    .rules-note {
+      margin: 16px 12px 0;
+      background: var(--gold-light);
+      border: 1px solid #e8c95a;
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #7d6012;
+      line-height: 1.6;
+    }
+    .rules-note strong { font-weight: 700; }
+
+    .hole-divider td {
+      background: var(--green-light) !important;
+      color: var(--green) !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 5px 6px !important;
+      border-bottom: 1px solid #b7dfc8 !important;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>⛳ Holmes Park</h1>
+  <p>Golf Betting Scorecard</p>
+</header>
+
+<div class="teams-bar">
+  <div class="team-label team-a">
+    Team A
+    <span>Ben &amp; Tucker</span>
+  </div>
+  <div class="team-label team-b">
+    Team B
+    <span>Tyler &amp; Scott</span>
+  </div>
+</div>
+
+<div class="rules-note">
+  <strong>Quick rules:</strong> Low Total = 2 pts &nbsp;·&nbsp; Low Ball = 1 pt &nbsp;·&nbsp; Birdie bonus = +1 &nbsp;·&nbsp; Eagle bonus = +3. Everything adds together for one winner.
+</div>
+
+<!-- LOW TOTAL -->
+<div class="section">
+  <div class="section-header">
+    <h2>🥇 Low Total</h2>
+    <span class="badge badge-gold">2 pts per hole</span>
+  </div>
+  <table id="lt-table">
+    <thead>
+      <tr>
+        <th>Hole</th>
+        <th>Team A</th>
+        <th>Tie</th>
+        <th>Team B</th>
+        <th>Pts</th>
+      </tr>
+    </thead>
+    <tbody id="lt-body"></tbody>
+  </table>
+</div>
+
+<!-- LOW BALL -->
+<div class="section">
+  <div class="section-header">
+    <h2>🥈 Low Ball</h2>
+    <span class="badge badge-silver">1 pt per hole</span>
+  </div>
+  <table id="lb-table">
+    <thead>
+      <tr>
+        <th>Hole</th>
+        <th>Team A</th>
+        <th>Tie</th>
+        <th>Team B</th>
+        <th>Pts</th>
+      </tr>
+    </thead>
+    <tbody id="lb-body"></tbody>
+  </table>
+</div>
+
+<!-- BONUS -->
+<div class="section">
+  <div class="section-header">
+    <h2>🧨 Bonus Scoring</h2>
+    <span class="badge badge-bonus">Birdie +1 · Eagle +3</span>
+  </div>
+  <div class="bonus-grid">
+    <div class="bonus-team">
+      <div class="bonus-team-label team-a-label">Team A — Ben &amp; Tucker</div>
+      <div class="bonus-row">
+        <label>Birdies (+1)</label>
+        <div class="bonus-counter">
+          <button onclick="adjustBonus('a','birdie',-1)">−</button>
+          <span class="val" id="a-birdie">0</span>
+          <button onclick="adjustBonus('a','birdie',1)">+</button>
+        </div>
+      </div>
+      <div class="bonus-row">
+        <label>Eagles (+3)</label>
+        <div class="bonus-counter">
+          <button onclick="adjustBonus('a','eagle',-1)">−</button>
+          <span class="val" id="a-eagle">0</span>
+          <button onclick="adjustBonus('a','eagle',1)">+</button>
+        </div>
+      </div>
+      <div class="bonus-pts" id="a-bonus-pts">Bonus: 0 pts</div>
+    </div>
+    <div class="bonus-team">
+      <div class="bonus-team-label team-b-label">Team B — Tyler &amp; Scott</div>
+      <div class="bonus-row">
+        <label>Birdies (+1)</label>
+        <div class="bonus-counter">
+          <button onclick="adjustBonus('b','birdie',-1)">−</button>
+          <span class="val" id="b-birdie">0</span>
+          <button onclick="adjustBonus('b','birdie',1)">+</button>
+        </div>
+      </div>
+      <div class="bonus-row">
+        <label>Eagles (+3)</label>
+        <div class="bonus-counter">
+          <button onclick="adjustBonus('b','eagle',-1)">−</button>
+          <span class="val" id="b-eagle">0</span>
+          <button onclick="adjustBonus('b','eagle',1)">+</button>
+        </div>
+      </div>
+      <div class="bonus-pts" id="b-bonus-pts">Bonus: 0 pts</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRESS TRACKER -->
+<div class="press-section">
+  <div class="section-header">
+    <h2>🔥 Press Tracker</h2>
+    <span class="badge badge-gold">Max 2 each</span>
+  </div>
+  <div class="press-grid">
+    <div class="press-team">
+      <div class="press-team-name" style="color:#1a5276">Team A — Ben &amp; Tucker</div>
+      <div class="press-boxes">
+        <div class="press-box" id="press-a-0" onclick="togglePress('a',0)"></div>
+        <div class="press-box" id="press-a-1" onclick="togglePress('a',1)"></div>
+      </div>
+    </div>
+    <div class="press-team">
+      <div class="press-team-name" style="color:#922b21">Team B — Tyler &amp; Scott</div>
+      <div class="press-boxes">
+        <div class="press-box" id="press-b-0" onclick="togglePress('b',0)"></div>
+        <div class="press-box" id="press-b-1" onclick="togglePress('b',1)"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCOREBOARD -->
+<div class="scoreboard">
+  <div class="scoreboard-header">🏁 FINAL COMBINED SCORE</div>
+  <div class="scoreboard-grid">
+    <div class="score-col">
+      <div class="score-team-name a">Team A — Ben &amp; Tucker</div>
+      <div class="score-total" id="total-a">0</div>
+      <div class="score-breakdown" id="breakdown-a">LT: 0 · LB: 0 · Bonus: 0</div>
+    </div>
+    <div class="score-col">
+      <div class="score-team-name b">Team B — Tyler &amp; Scott</div>
+      <div class="score-total" id="total-b">0</div>
+      <div class="score-breakdown" id="breakdown-b">LT: 0 · LB: 0 · Bonus: 0</div>
+    </div>
+  </div>
+  <div class="winner-banner" id="winner-banner"></div>
+</div>
+
+<button class="reset-btn" onclick="confirmReset()">Reset Scorecard</button>
+
+<script>
+  const HOLES = 18;
+  const state = {
+    lt: Array(HOLES).fill(null),
+    lb: Array(HOLES).fill(null),
+    bonus: { a: { birdie: 0, eagle: 0 }, b: { birdie: 0, eagle: 0 } },
+    press: { a: [false, false], b: [false, false] }
+  };
+
+  function buildTables() {
+    ['lt','lb'].forEach(game => {
+      const pts = game === 'lt' ? 2 : 1;
+      const tbody = document.getElementById(game + '-body');
+      tbody.innerHTML = '';
+
+      for (let h = 1; h <= HOLES; h++) {
+        if (h === 10) {
+          const divRow = document.createElement('tr');
+          divRow.className = 'hole-divider';
+
+          const ltOut = calcOut(state.lt, 2);
+          const lbOut = calcOut(state.lb, 1);
+
+          if (game === 'lt') {
+            divRow.innerHTML = `<td colspan="5">OUT — Team A: ${ltOut.a} pts &nbsp;|&nbsp; Team B: ${ltOut.b} pts</td>`;
+          } else {
+            divRow.innerHTML = `<td colspan="5">OUT — Team A: ${lbOut.a} pts &nbsp;|&nbsp; Team B: ${lbOut.b} pts</td>`;
+          }
+          tbody.appendChild(divRow);
+        }
+
+        const tr = document.createElement('tr');
+        const winner = game === 'lt' ? state.lt[h-1] : state.lb[h-1];
+        tr.innerHTML = `
+          <td>${h}</td>
+          <td><button class="winner-btn ${winner==='a'?'active-a':''}" onclick="setWinner('${game}',${h-1},'a')">A</button></td>
+          <td><button class="winner-btn ${winner==='tie'?'active-tie':''}" onclick="setWinner('${game}',${h-1},'tie')">–</button></td>
+          <td><button class="winner-btn ${winner==='b'?'active-b':''}" onclick="setWinner('${game}',${h-1},'b')">B</button></td>
+          <td class="pts-cell">${pts}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      // IN subtotal
+      const inRow = document.createElement('tr');
+      inRow.className = 'hole-divider';
+      const inTotals = calcIn(game === 'lt' ? state.lt : state.lb, pts);
+      inRow.innerHTML = `<td colspan="5">IN — Team A: ${inTotals.a} pts &nbsp;|&nbsp; Team B: ${inTotals.b} pts</td>`;
+      tbody.appendChild(inRow);
+    });
+  }
+
+  function calcOut(arr, pts) {
+    let a = 0, b = 0;
+    for (let i = 0; i < 9; i++) {
+      if (arr[i] === 'a') a += pts;
+      else if (arr[i] === 'b') b += pts;
+    }
+    return { a, b };
+  }
+
+  function calcIn(arr, pts) {
+    let a = 0, b = 0;
+    for (let i = 9; i < 18; i++) {
+      if (arr[i] === 'a') a += pts;
+      else if (arr[i] === 'b') b += pts;
+    }
+    return { a, b };
+  }
+
+  function calcTotal(arr, pts) {
+    let a = 0, b = 0;
+    arr.forEach(w => {
+      if (w === 'a') a += pts;
+      else if (w === 'b') b += pts;
+    });
+    return { a, b };
+  }
+
+  function setWinner(game, hole, team) {
+    const arr = game === 'lt' ? state.lt : state.lb;
+    arr[hole] = arr[hole] === team ? null : team;
+    buildTables();
+    updateScoreboard();
+  }
+
+  function adjustBonus(team, type, delta) {
+    state.bonus[team][type] = Math.max(0, state.bonus[team][type] + delta);
+    document.getElementById(team + '-' + type).textContent = state.bonus[team][type];
+    const pts = state.bonus[team].birdie * 1 + state.bonus[team].eagle * 3;
+    document.getElementById(team + '-bonus-pts').textContent = 'Bonus: ' + pts + ' pts';
+    updateScoreboard();
+  }
+
+  function togglePress(team, idx) {
+    state.press[team][idx] = !state.press[team][idx];
+    const el = document.getElementById('press-' + team + '-' + idx);
+    el.textContent = state.press[team][idx] ? '✓' : '';
+    el.className = 'press-box' + (state.press[team][idx] ? ' used-' + team : '');
+  }
+
+  function updateScoreboard() {
+    const lt = calcTotal(state.lt, 2);
+    const lb = calcTotal(state.lb, 1);
+    const bonusA = state.bonus.a.birdie * 1 + state.bonus.a.eagle * 3;
+    const bonusB = state.bonus.b.birdie * 1 + state.bonus.b.eagle * 3;
+    const totalA = lt.a + lb.a + bonusA;
+    const totalB = lt.b + lb.b + bonusB;
+
+    document.getElementById('total-a').textContent = totalA;
+    document.getElementById('total-b').textContent = totalB;
+    document.getElementById('breakdown-a').textContent = `LT: ${lt.a} · LB: ${lb.a} · Bonus: ${bonusA}`;
+    document.getElementById('breakdown-b').textContent = `LT: ${lt.b} · LB: ${lb.b} · Bonus: ${bonusB}`;
+
+    const banner = document.getElementById('winner-banner');
+    const anyScored = totalA > 0 || totalB > 0;
+    if (anyScored) {
+      banner.classList.add('show');
+      if (totalA > totalB) banner.textContent = '🏆 Team A Leads — Ben & Tucker';
+      else if (totalB > totalA) banner.textContent = '🏆 Team B Leads — Tyler & Scott';
+      else banner.textContent = '🤝 All Square';
+    } else {
+      banner.classList.remove('show');
+    }
+  }
+
+  function confirmReset() {
+    if (confirm('Reset the entire scorecard? This cannot be undone.')) {
+      state.lt.fill(null);
+      state.lb.fill(null);
+      state.bonus = { a: { birdie: 0, eagle: 0 }, b: { birdie: 0, eagle: 0 } };
+      state.press = { a: [false, false], b: [false, false] };
+      ['a','b'].forEach(t => {
+        ['birdie','eagle'].forEach(type => {
+          document.getElementById(t + '-' + type).textContent = '0';
+          document.getElementById(t + '-bonus-pts').textContent = 'Bonus: 0 pts';
+        });
+        [0,1].forEach(i => {
+          const el = document.getElementById('press-' + t + '-' + i);
+          el.textContent = '';
+          el.className = 'press-box';
+        });
+      });
+      buildTables();
+      updateScoreboard();
+    }
+  }
+
+  buildTables();
+  updateScoreboard();
+</script>
+</body>
+</html>
