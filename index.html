@@ -28,6 +28,8 @@
       --shadow: 0 2px 8px rgba(0,0,0,0.08);
       --team-a: #1a5276;
       --team-b: #922b21;
+      --orange: #c2410c;
+      --orange-light: #fff7ed;
     }
 
     body {
@@ -38,7 +40,6 @@
       padding: 0 0 100px;
     }
 
-    /* ── HEADER ── */
     header {
       background: var(--green);
       color: white;
@@ -48,7 +49,6 @@
     header h1 { font-size: 20px; font-weight: 700; }
     header p { font-size: 12px; opacity: 0.75; margin-top: 3px; }
 
-    /* ── TAB NAV ── */
     .tab-nav {
       display: flex;
       background: #fff;
@@ -59,28 +59,17 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.07);
     }
     .tab-btn {
-      flex: 1;
-      padding: 12px 4px;
-      font-size: 12px;
-      font-weight: 600;
-      text-align: center;
-      border: none;
-      background: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      transition: all 0.15s;
+      flex: 1; padding: 12px 4px;
+      font-size: 12px; font-weight: 600; text-align: center;
+      border: none; background: none; color: var(--text-muted);
+      cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.15s;
     }
-    .tab-btn.active {
-      color: var(--green);
-      border-bottom-color: var(--green);
-    }
+    .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
 
-    /* ── PANELS ── */
     .panel { display: none; }
     .panel.active { display: block; }
 
-    /* ── SCORECARD ENTRY ── */
+    /* ── SCORECARD TABLE ── */
     .scorecard-wrap {
       margin: 14px 10px 0;
       background: var(--white);
@@ -88,58 +77,37 @@
       box-shadow: var(--shadow);
       overflow: hidden;
     }
-
-    .sc-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
+    .sc-table { width: 100%; border-collapse: collapse; }
     .sc-table thead th {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      padding: 7px 3px;
-      text-align: center;
-      background: var(--gray-light);
-      border-bottom: 2px solid var(--border);
+      font-size: 10px; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.3px;
+      padding: 7px 3px; text-align: center;
+      background: var(--gray-light); border-bottom: 2px solid var(--border);
     }
     .sc-table thead th.th-a { background: #dbeafe; color: var(--blue); }
     .sc-table thead th.th-b { background: #fee2e2; color: #7f1d1d; }
-
     .sc-table tbody tr { border-bottom: 1px solid #f0f0f0; }
     .sc-table tbody tr:last-child { border-bottom: none; }
     .sc-table tbody td { padding: 5px 3px; text-align: center; vertical-align: middle; }
 
-    /* Hole info cell */
     .hole-info { display: flex; flex-direction: column; align-items: center; gap: 1px; }
     .hole-num { font-size: 13px; font-weight: 700; color: var(--text); }
-    .par-chip {
-      font-size: 9px; font-weight: 700;
-      padding: 1px 4px; border-radius: 6px; line-height: 1.4;
-    }
+    .par-chip { font-size: 9px; font-weight: 700; padding: 1px 4px; border-radius: 6px; line-height: 1.4; }
     .pc-3 { background: var(--purple-light); color: var(--purple); }
     .pc-4 { background: var(--gray-light); color: var(--gray); }
     .pc-5 { background: var(--gold-light); color: #7d6012; }
 
-    /* Score input */
     .score-input {
-      width: 36px; height: 34px;
-      border: 1.5px solid var(--border);
-      border-radius: 6px;
-      text-align: center;
-      font-size: 15px;
-      font-weight: 700;
-      background: #fafafa;
-      color: var(--text);
+      width: 34px; height: 32px;
+      border: 1.5px solid var(--border); border-radius: 6px;
+      text-align: center; font-size: 15px; font-weight: 700;
+      background: #fafafa; color: var(--text);
       -moz-appearance: textfield;
     }
     .score-input::-webkit-inner-spin-button,
     .score-input::-webkit-outer-spin-button { -webkit-appearance: none; }
     .score-input:focus { outline: none; border-color: var(--green); background: var(--white); }
 
-    /* Score coloring */
     .score-eagle  { background: #fde68a !important; color: #7d4f00 !important; border-color: var(--gold) !important; }
     .score-birdie { background: #bbf7d0 !important; color: #166534 !important; border-color: #16a34a !important; }
     .score-par    { background: #fff !important; color: var(--text) !important; }
@@ -147,35 +115,36 @@
     .score-double { background: #fecaca !important; color: #7f1d1d !important; border-color: #dc2626 !important; }
     .score-worse  { background: #fee2e2 !important; color: #7f1d1d !important; }
 
-    /* Result badge */
-    .result-cell { font-size: 10px; font-weight: 700; }
+    .result-cell { font-size: 10px; font-weight: 700; line-height: 1.6; }
     .res-a { color: var(--team-a); }
     .res-b { color: var(--team-b); }
     .res-tie { color: var(--green); }
+    .res-press { color: var(--orange); font-size: 9px; }
 
-    /* Subtotal / total rows */
     .subtotal-row td {
-      background: var(--gray-light);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 7px 3px;
-      border-top: 2px solid var(--border);
-      border-bottom: 2px solid var(--border);
+      background: var(--gray-light); font-size: 11px; font-weight: 700;
+      padding: 7px 3px; border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);
     }
     .subtotal-row .sub-label { color: var(--text-muted); font-size: 10px; }
 
-    /* CTP row */
-    .ctp-row td {
-      background: var(--purple-light);
-      padding: 5px 3px;
+    /* ── PRESS BUTTON on hole row ── */
+    .press-hole-btn {
+      font-size: 9px; font-weight: 800;
+      padding: 2px 5px; border-radius: 6px;
+      border: 1.5px solid #f97316;
+      background: var(--white); color: #f97316;
+      cursor: pointer; display: block; margin: 2px auto 0;
+      white-space: nowrap; transition: all 0.12s; line-height: 1.4;
     }
-    .ctp-inner {
-      display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap;
-    }
+    .press-hole-btn.pressed { background: #f97316; color: white; border-color: #f97316; }
+    .press-hole-btn.disabled { opacity: 0.35; cursor: not-allowed; border-color: var(--border); color: var(--text-muted); background: var(--white); }
+
+    /* ── CTP row ── */
+    .ctp-row td { background: var(--purple-light); padding: 5px 3px; }
+    .ctp-inner { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
     .ctp-label { font-size: 10px; font-weight: 700; color: var(--purple); white-space: nowrap; }
     .ctp-btn {
-      padding: 3px 8px; border-radius: 10px;
-      border: 1.5px solid #a855f7;
+      padding: 3px 8px; border-radius: 10px; border: 1.5px solid #a855f7;
       background: var(--white); font-size: 10px; font-weight: 700;
       cursor: pointer; color: var(--purple); transition: all 0.12s;
     }
@@ -183,30 +152,37 @@
     .ctp-btn.ctp-active-b { background: var(--team-b); border-color: var(--team-b); color: white; }
     .ctp-btn.ctp-active-tie { background: var(--green); border-color: var(--green); color: white; }
 
+    /* ── PRESS TRACKER SUMMARY ── */
+    .press-summary-wrap {
+      margin: 14px 10px 0;
+      background: var(--orange-light);
+      border: 1px solid #fed7aa;
+      border-radius: var(--radius);
+      padding: 12px 14px;
+    }
+    .press-summary-wrap h3 { font-size: 12px; font-weight: 700; color: var(--orange); margin-bottom: 8px; }
+    .press-half-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .press-half-box {
+      background: white; border-radius: 8px; padding: 10px;
+      border: 1px solid #fed7aa;
+    }
+    .press-half-title { font-size: 11px; font-weight: 700; color: var(--orange); margin-bottom: 6px; }
+    .press-half-status { font-size: 12px; color: var(--text-muted); }
+    .press-used { color: #f97316; font-weight: 700; }
+    .press-avail { color: var(--green); font-weight: 700; }
+
     /* ── LIVE SCOREBOARD ── */
     .live-board {
-      margin: 14px 10px 0;
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      margin: 14px 10px 0; background: var(--white);
+      border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
     }
     .live-board-header {
-      background: var(--green);
-      color: white;
-      text-align: center;
-      padding: 10px;
-      font-size: 13px;
-      font-weight: 700;
+      background: var(--green); color: white; text-align: center;
+      padding: 10px; font-size: 13px; font-weight: 700;
     }
-    .live-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
+    .live-grid { display: grid; grid-template-columns: 1fr 1fr; }
     .live-col {
-      padding: 14px 10px;
-      text-align: center;
-      border-right: 1px solid var(--border);
+      padding: 14px 10px; text-align: center; border-right: 1px solid var(--border);
     }
     .live-col:last-child { border-right: none; }
     .live-team { font-size: 11px; font-weight: 700; margin-bottom: 4px; }
@@ -215,81 +191,52 @@
     .live-score { font-size: 40px; font-weight: 800; line-height: 1; }
     .live-breakdown { font-size: 10px; color: var(--text-muted); margin-top: 6px; line-height: 1.9; }
     .winner-banner {
-      text-align: center; padding: 10px;
-      font-weight: 700; font-size: 14px;
-      border-top: 1px solid var(--border);
-      background: var(--green-light); color: var(--green);
-      display: none;
+      text-align: center; padding: 10px; font-weight: 700; font-size: 14px;
+      border-top: 1px solid var(--border); background: var(--green-light); color: var(--green); display: none;
     }
     .winner-banner.show { display: block; }
 
-    /* ── BETTING BREAKDOWN ── */
+    /* ── BREAKDOWN TABLES ── */
     .breakdown-section {
-      margin: 14px 10px 0;
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      margin: 14px 10px 0; background: var(--white);
+      border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
     }
     .breakdown-header {
-      background: var(--gray-light);
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 700;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 8px;
+      background: var(--gray-light); padding: 10px 14px;
+      font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--border);
     }
     .breakdown-table { width: 100%; border-collapse: collapse; font-size: 12px; }
     .breakdown-table th {
-      padding: 7px 10px;
-      background: var(--gray-light);
-      font-size: 10px; font-weight: 700;
-      color: var(--text-muted); text-transform: uppercase;
-      border-bottom: 1px solid var(--border);
+      padding: 7px 10px; background: var(--gray-light);
+      font-size: 10px; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; border-bottom: 1px solid var(--border);
     }
-    .breakdown-table td {
-      padding: 8px 10px;
-      border-bottom: 1px solid #f0f0f0;
-    }
+    .breakdown-table td { padding: 8px 10px; border-bottom: 1px solid #f0f0f0; }
     .breakdown-table tr:last-child td { border-bottom: none; }
-    .breakdown-table .pts-a { color: var(--team-a); font-weight: 700; }
-    .breakdown-table .pts-b { color: var(--team-b); font-weight: 700; }
+    .pts-a { color: var(--team-a); font-weight: 700; }
+    .pts-b { color: var(--team-b); font-weight: 700; }
     .breakdown-table .total-row td {
-      background: var(--green-light); font-weight: 700;
-      font-size: 13px; color: var(--green);
-      border-top: 2px solid #b7dfc8;
+      background: var(--green-light); font-weight: 700; font-size: 13px;
+      color: var(--green); border-top: 2px solid #b7dfc8;
     }
 
-    /* ── PLAYER SCORECARD VIEW ── */
+    /* ── PLAYER CARDS ── */
     .player-card {
-      margin: 14px 10px 0;
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      margin: 14px 10px 0; background: var(--white);
+      border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
     }
-    .player-card-header {
-      padding: 10px 14px;
-      font-size: 13px; font-weight: 700;
-      border-bottom: 1px solid var(--border);
-    }
+    .player-card-header { padding: 10px 14px; font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--border); }
     .player-card-header.hdr-a { background: #dbeafe; color: var(--blue); }
     .player-card-header.hdr-b { background: #fee2e2; color: #7f1d1d; }
     .player-sc-table { width: 100%; border-collapse: collapse; font-size: 12px; }
     .player-sc-table th {
-      padding: 6px 4px; font-size: 10px; font-weight: 700;
-      color: var(--text-muted); text-transform: uppercase;
-      background: var(--gray-light); border-bottom: 1px solid var(--border);
-      text-align: center;
+      padding: 6px 4px; font-size: 10px; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; background: var(--gray-light);
+      border-bottom: 1px solid var(--border); text-align: center;
     }
-    .player-sc-table td {
-      padding: 7px 4px; text-align: center; border-bottom: 1px solid #f0f0f0;
-    }
+    .player-sc-table td { padding: 7px 4px; text-align: center; border-bottom: 1px solid #f0f0f0; }
     .player-sc-table tr:last-child td { border-bottom: none; }
-    .score-pill {
-      display: inline-block; min-width: 24px; padding: 2px 5px;
-      border-radius: 6px; font-weight: 700; font-size: 12px;
-    }
+    .score-pill { display: inline-block; min-width: 24px; padding: 2px 5px; border-radius: 6px; font-weight: 700; font-size: 12px; }
     .pill-eagle  { background: #fde68a; color: #7d4f00; }
     .pill-birdie { background: #bbf7d0; color: #166534; }
     .pill-par    { background: var(--gray-light); color: var(--gray); }
@@ -298,79 +245,40 @@
     .pill-worse  { background: #fca5a5; color: #7f1d1d; }
     .player-sub-row td {
       background: var(--gray-light); font-weight: 700;
-      border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);
-      font-size: 11px;
+      border-top: 2px solid var(--border); border-bottom: 2px solid var(--border); font-size: 11px;
     }
-    .to-par { font-size: 10px; }
     .to-par.under { color: #16a34a; font-weight: 700; }
     .to-par.over { color: var(--red); }
     .to-par.even { color: var(--gray); }
 
-    /* ── PRESS TRACKER ── */
-    .press-wrap {
-      margin: 14px 10px 0;
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .press-grid { display: grid; grid-template-columns: 1fr 1fr; }
-    .press-col {
-      padding: 14px 10px; text-align: center;
-      border-right: 1px solid var(--border);
-    }
-    .press-col:last-child { border-right: none; }
-    .press-name { font-size: 11px; font-weight: 700; margin-bottom: 10px; }
-    .press-boxes { display: flex; gap: 8px; justify-content: center; }
-    .press-box {
-      width: 38px; height: 38px; border: 2px solid var(--border);
-      border-radius: 8px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; transition: all 0.15s;
-    }
-    .press-box.used-a { background: var(--team-a); border-color: var(--team-a); color: white; }
-    .press-box.used-b { background: var(--team-b); border-color: var(--team-b); color: white; }
-
     /* ── MISC ── */
-    .section-label {
-      margin: 14px 10px 0;
-      font-size: 11px; font-weight: 700;
-      color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .rules-note {
-      margin: 14px 10px 0;
-      background: var(--gold-light);
-      border: 1px solid #e8c95a;
-      border-radius: var(--radius);
-      padding: 10px 14px;
-      font-size: 12px; color: #7d6012; line-height: 1.6;
-    }
-
-    .reset-btn {
-      display: block; margin: 20px auto 0;
-      padding: 10px 28px;
-      background: var(--white); border: 1.5px solid var(--border);
-      border-radius: 8px; font-size: 14px; font-weight: 600;
-      color: var(--text-muted); cursor: pointer;
-    }
-
     .ctp-summary-wrap {
-      margin: 14px 10px 0;
-      background: var(--purple-light);
-      border: 1px solid #d8b4fe;
-      border-radius: var(--radius);
-      padding: 12px 14px;
+      margin: 14px 10px 0; background: var(--purple-light);
+      border: 1px solid #d8b4fe; border-radius: var(--radius); padding: 12px 14px;
     }
     .ctp-summary-wrap h3 { font-size: 12px; font-weight: 700; color: var(--purple); margin-bottom: 8px; }
     .ctp-sum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .ctp-sum-item {
-      background: white; border-radius: 6px; padding: 6px 8px;
-      font-size: 11px; border: 1px solid #e9d5ff;
-    }
+    .ctp-sum-item { background: white; border-radius: 6px; padding: 6px 8px; font-size: 11px; border: 1px solid #e9d5ff; }
     .ctp-sum-hole { font-weight: 700; color: var(--purple); }
     .ctp-sum-winner-a { color: var(--team-a); font-weight: 700; }
     .ctp-sum-winner-b { color: var(--team-b); font-weight: 700; }
     .ctp-sum-winner-tie { color: var(--green); font-weight: 700; }
+
+    .rules-note {
+      margin: 14px 10px 0; background: var(--gold-light);
+      border: 1px solid #e8c95a; border-radius: var(--radius);
+      padding: 10px 14px; font-size: 12px; color: #7d6012; line-height: 1.6;
+    }
+    .reset-btn {
+      display: block; margin: 20px auto 0; padding: 10px 28px;
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: 14px; font-weight: 600;
+      color: var(--text-muted); cursor: pointer;
+    }
+    .section-label {
+      margin: 14px 10px 4px; font-size: 11px; font-weight: 700;
+      color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
+    }
   </style>
 </head>
 <body>
@@ -380,20 +288,17 @@
   <p>Ben &amp; Tucker &nbsp;vs&nbsp; Tyler &amp; Scott</p>
 </header>
 
-<!-- TAB NAV -->
 <div class="tab-nav">
-  <button class="tab-btn active" onclick="showTab('entry')">📝 Scorecard</button>
-  <button class="tab-btn" onclick="showTab('scores')">🏌️ Players</button>
-  <button class="tab-btn" onclick="showTab('betting')">🏆 Betting</button>
+  <button class="tab-btn active" onclick="showTab('entry',this)">📝 Scorecard</button>
+  <button class="tab-btn" onclick="showTab('scores',this)">🏌️ Players</button>
+  <button class="tab-btn" onclick="showTab('betting',this)">🏆 Betting</button>
 </div>
 
-<!-- ══════════════════════════════════════
-     TAB 1 — SCORE ENTRY
-══════════════════════════════════════ -->
+<!-- ══ TAB 1: SCORE ENTRY ══ -->
 <div id="tab-entry" class="panel active">
 
   <div class="rules-note">
-    Enter each player's score per hole — Low Total, Low Ball, birdies, eagles, and CTP all calculate automatically.
+    <strong>Quick rules:</strong> Low Total = 2 pts · Low Ball = 1 pt · Birdie = +1 · Eagle = +3 · CTP (par 3s) = +1 · Press = doubles Low Total on that hole only · Max 1 press per 9 holes
   </div>
 
   <div class="scorecard-wrap">
@@ -412,85 +317,50 @@
     </table>
   </div>
 
+  <!-- Press Tracker Summary -->
+  <div class="press-summary-wrap">
+    <h3>🔥 Press Tracker</h3>
+    <div class="press-half-grid">
+      <div class="press-half-box">
+        <div class="press-half-title">Front 9 (Holes 1–9)</div>
+        <div class="press-half-status" id="press-front-status">No press used</div>
+      </div>
+      <div class="press-half-box">
+        <div class="press-half-title">Back 9 (Holes 10–18)</div>
+        <div class="press-half-status" id="press-back-status">No press used</div>
+      </div>
+    </div>
+  </div>
+
   <!-- CTP Summary -->
   <div class="ctp-summary-wrap">
     <h3>📍 Closest to Pin — Par 3s</h3>
     <div class="ctp-sum-grid" id="ctp-sum-grid"></div>
   </div>
 
-  <!-- Press Tracker -->
-  <p class="section-label">🔥 Press Tracker</p>
-  <div class="press-wrap">
-    <div class="section-header" style="padding:10px 14px;border-bottom:1px solid var(--border);background:var(--gray-light);font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;">
-      <span>Press Tracker</span>
-      <span style="font-size:11px;padding:2px 8px;border-radius:20px;background:var(--gold-light);color:#7d6012;font-weight:600;">Max 2 each · doubles LT+LB on next hole</span>
-    </div>
-    <div class="press-grid">
-      <div class="press-col">
-        <div class="press-name" style="color:var(--team-a)">Team A — Ben &amp; Tucker</div>
-        <div class="press-boxes">
-          <div class="press-box" id="press-a-0" onclick="togglePress('a',0)"></div>
-          <div class="press-box" id="press-a-1" onclick="togglePress('a',1)"></div>
-        </div>
-      </div>
-      <div class="press-col">
-        <div class="press-name" style="color:var(--team-b)">Team B — Tyler &amp; Scott</div>
-        <div class="press-boxes">
-          <div class="press-box" id="press-b-0" onclick="togglePress('b',0)"></div>
-          <div class="press-box" id="press-b-1" onclick="togglePress('b',1)"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <button class="reset-btn" onclick="confirmReset()">Reset Scorecard</button>
 </div>
 
-<!-- ══════════════════════════════════════
-     TAB 2 — PLAYER SCORECARDS
-══════════════════════════════════════ -->
+<!-- ══ TAB 2: PLAYER SCORECARDS ══ -->
 <div id="tab-scores" class="panel">
-
-  <!-- Team A -->
   <div class="player-card" style="margin-top:14px">
     <div class="player-card-header hdr-a">🔵 Team A — Ben &amp; Tucker</div>
     <table class="player-sc-table">
-      <thead>
-        <tr>
-          <th>Hole</th><th>Par</th>
-          <th style="color:#1a5276">Ben</th>
-          <th style="color:#1a5276">Tucker</th>
-          <th>Best</th><th>+/−</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Hole</th><th>Par</th><th style="color:#1a5276">Ben</th><th style="color:#1a5276">Tucker</th><th>Best</th><th>+/−</th></tr></thead>
       <tbody id="player-a-body"></tbody>
     </table>
   </div>
-
-  <!-- Team B -->
   <div class="player-card">
     <div class="player-card-header hdr-b">🔴 Team B — Tyler &amp; Scott</div>
     <table class="player-sc-table">
-      <thead>
-        <tr>
-          <th>Hole</th><th>Par</th>
-          <th style="color:#922b21">Tyler</th>
-          <th style="color:#922b21">Scott</th>
-          <th>Best</th><th>+/−</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Hole</th><th>Par</th><th style="color:#922b21">Tyler</th><th style="color:#922b21">Scott</th><th>Best</th><th>+/−</th></tr></thead>
       <tbody id="player-b-body"></tbody>
     </table>
   </div>
-
 </div>
 
-<!-- ══════════════════════════════════════
-     TAB 3 — BETTING RESULTS
-══════════════════════════════════════ -->
+<!-- ══ TAB 3: BETTING ══ -->
 <div id="tab-betting" class="panel">
-
-  <!-- Live Scoreboard -->
   <div class="live-board">
     <div class="live-board-header">🏁 Combined Score</div>
     <div class="live-grid">
@@ -508,132 +378,114 @@
     <div class="winner-banner" id="winner-banner"></div>
   </div>
 
-  <!-- Breakdown table -->
   <div class="breakdown-section">
     <div class="breakdown-header">📊 Point Breakdown</div>
     <table class="breakdown-table">
-      <thead>
-        <tr>
-          <th>Category</th>
-          <th>Team A</th>
-          <th>Team B</th>
-          <th>Rule</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Category</th><th>Team A</th><th>Team B</th><th>Rule</th></tr></thead>
       <tbody id="breakdown-body"></tbody>
     </table>
   </div>
 
-  <!-- Hole-by-hole betting -->
   <div class="breakdown-section">
     <div class="breakdown-header">⛳ Hole-by-Hole Betting</div>
     <table class="breakdown-table">
-      <thead>
-        <tr>
-          <th>Hole</th>
-          <th>LT (2pt)</th>
-          <th>LB (1pt)</th>
-          <th>CTP</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Hole</th><th>LT</th><th>LB (1pt)</th><th>CTP</th><th>Press</th></tr></thead>
       <tbody id="hole-betting-body"></tbody>
     </table>
   </div>
-
 </div>
 
 <script>
   // ── CONSTANTS ──
-  const PARS    = [5,4,3,4,4,4,4,5,3,  5,4,3,4,3,4,4,4,5];
-  const PAR3S   = new Set([3,9,12,14]); // 1-indexed
-  const PLAYERS = ['Ben','Tucker','Tyler','Scott'];
-  // Ben & Tucker = Team A (indices 0,1), Tyler & Scott = Team B (indices 2,3)
+  const PARS  = [5,4,3,4,4,4,4,5,3, 5,4,3,4,3,4,4,4,5];
+  const PAR3S = new Set([3,9,12,14]);
 
   // ── STATE ──
-  // scores[hole 0-17][player 0-3] = number or null
   const scores = Array.from({length:18}, () => [null,null,null,null]);
   const ctp    = {3:null, 9:null, 12:null, 14:null};
-  const press  = {a:[false,false], b:[false,false]};
+  // pressedHole[h] = true if press is active on hole h (0-indexed)
+  const pressedHole = Array(18).fill(false);
 
   // ── HELPERS ──
   function parClass(p) { return p===3?'pc-3':p===5?'pc-5':'pc-4'; }
-  function fmt(n) { return n%1===0 ? String(n) : n.toFixed(1); }
-
-  function toPar(score, par) {
-    if (score == null) return null;
-    return score - par;
-  }
+  function fmt(n) { return n%1===0?String(n):n.toFixed(1); }
 
   function scoreClass(score, par) {
-    if (score == null) return '';
-    const d = score - par;
-    if (d <= -2) return 'score-eagle';
-    if (d === -1) return 'score-birdie';
-    if (d === 0)  return 'score-par';
-    if (d === 1)  return 'score-bogey';
-    if (d === 2)  return 'score-double';
+    if (score==null) return '';
+    const d=score-par;
+    if (d<=-2) return 'score-eagle';
+    if (d===-1) return 'score-birdie';
+    if (d===0)  return 'score-par';
+    if (d===1)  return 'score-bogey';
+    if (d===2)  return 'score-double';
     return 'score-worse';
   }
   function pillClass(score, par) {
-    if (score == null) return 'pill-par';
-    const d = score - par;
-    if (d <= -2) return 'pill-eagle';
-    if (d === -1) return 'pill-birdie';
-    if (d === 0)  return 'pill-par';
-    if (d === 1)  return 'pill-bogey';
-    if (d === 2)  return 'pill-double';
+    if (score==null) return 'pill-par';
+    const d=score-par;
+    if (d<=-2) return 'pill-eagle';
+    if (d===-1) return 'pill-birdie';
+    if (d===0)  return 'pill-par';
+    if (d===1)  return 'pill-bogey';
+    if (d===2)  return 'pill-double';
     return 'pill-worse';
   }
   function toParLabel(total, parTotal) {
-    const d = total - parTotal;
-    if (d === 0) return '<span class="to-par even">E</span>';
-    if (d < 0)  return `<span class="to-par under">${d}</span>`;
+    const d=total-parTotal;
+    if (d===0) return '<span class="to-par even">E</span>';
+    if (d<0)   return `<span class="to-par under">${d}</span>`;
     return `<span class="to-par over">+${d}</span>`;
   }
 
-  // Team total stroke for a hole (sum of 2 players); null if either missing
   function teamTotal(h, team) {
-    const idxs = team === 'a' ? [0,1] : [2,3];
-    const s = idxs.map(i => scores[h][i]);
-    if (s[0] == null || s[1] == null) return null;
-    return s[0] + s[1];
+    const [i1,i2] = team==='a'?[0,1]:[2,3];
+    const s1=scores[h][i1], s2=scores[h][i2];
+    if (s1==null||s2==null) return null;
+    return s1+s2;
   }
-  // Team best ball for a hole
   function teamBest(h, team) {
-    const idxs = team === 'a' ? [0,1] : [2,3];
-    const s = idxs.map(i => scores[h][i]).filter(v => v != null);
-    if (s.length === 0) return null;
-    return Math.min(...s);
+    const [i1,i2] = team==='a'?[0,1]:[2,3];
+    const vals = [scores[h][i1],scores[h][i2]].filter(v=>v!=null);
+    return vals.length===0?null:Math.min(...vals);
   }
-
-  // Determine LT winner for hole h (0-indexed)
   function ltWinner(h) {
-    const a = teamTotal(h, 'a'), b = teamTotal(h, 'b');
-    if (a == null || b == null) return null;
-    if (a < b) return 'a';
-    if (b < a) return 'b';
-    return 'tie';
+    const a=teamTotal(h,'a'), b=teamTotal(h,'b');
+    if (a==null||b==null) return null;
+    return a<b?'a':b<a?'b':'tie';
   }
-  // Determine LB winner for hole h (0-indexed)
   function lbWinner(h) {
-    const a = teamBest(h, 'a'), b = teamBest(h, 'b');
-    if (a == null || b == null) return null;
-    if (a < b) return 'a';
-    if (b < a) return 'b';
-    return 'tie';
+    const a=teamBest(h,'a'), b=teamBest(h,'b');
+    if (a==null||b==null) return null;
+    return a<b?'a':b<a?'b':'tie';
   }
 
-  // Count birdies/eagles per team from scores
+  // Is a press already used in this half? Returns hole index (0-based) or -1
+  function pressUsedInHalf(half) {
+    const [start,end] = half==='front'?[0,9]:[9,18];
+    for (let h=start;h<end;h++) { if (pressedHole[h]) return h; }
+    return -1;
+  }
+
+  // LT points for a hole, accounting for press doubling
+  function ltPtsForHole(h) {
+    const w = ltWinner(h);
+    if (!w) return {a:0,b:0};
+    const base = pressedHole[h] ? 4 : 2; // doubled if pressed
+    if (w==='a') return {a:base,b:0};
+    if (w==='b') return {a:0,b:base};
+    return {a:0,b:0}; // tie = 0 pts either way
+  }
+
   function countBirdiesEagles() {
-    let res = {a:{birdie:0,eagle:0}, b:{birdie:0,eagle:0}};
-    for (let h=0; h<18; h++) {
-      const par = PARS[h];
-      [[0,1,'a'],[2,3,'b']].forEach(([i1,i2,team]) => {
-        [scores[h][i1], scores[h][i2]].forEach(s => {
-          if (s == null) return;
-          const d = s - par;
-          if (d <= -2) res[team].eagle++;
-          else if (d === -1) res[team].birdie++;
+    const res={a:{birdie:0,eagle:0},b:{birdie:0,eagle:0}};
+    for (let h=0;h<18;h++) {
+      const par=PARS[h];
+      [[0,1,'a'],[2,3,'b']].forEach(([i1,i2,team])=>{
+        [scores[h][i1],scores[h][i2]].forEach(s=>{
+          if (s==null) return;
+          const d=s-par;
+          if (d<=-2) res[team].eagle++;
+          else if (d===-1) res[team].birdie++;
         });
       });
     }
@@ -641,11 +493,11 @@
   }
 
   function calcCTP() {
-    let a=0, b=0;
-    Object.values(ctp).forEach(v => {
+    let a=0,b=0;
+    Object.values(ctp).forEach(v=>{
       if (v==='a') a+=1;
       else if (v==='b') b+=1;
-      else if (v==='tie') { a+=0.5; b+=0.5; }
+      else if (v==='tie'){a+=0.5;b+=0.5;}
     });
     return {a,b};
   }
@@ -655,64 +507,69 @@
     const tbody = document.getElementById('entry-body');
     tbody.innerHTML = '';
 
-    let outRendered = false;
-
-    for (let h=0; h<18; h++) {
-      const hNum = h+1;
-      const par  = PARS[h];
-      const ip3  = PAR3S.has(hNum);
+    for (let h=0;h<18;h++) {
+      const hNum=h+1, par=PARS[h], ip3=PAR3S.has(hNum);
+      const half = h<9?'front':'back';
+      const pressUsed = pressUsedInHalf(half); // -1 or hole index
+      const alreadyPressedElsewhere = pressUsed!==-1 && pressUsed!==h;
+      const thisPressOn = pressedHole[h];
 
       // OUT divider
-      if (hNum === 10) {
+      if (hNum===10) {
+        const pts = calcHalfPoints(0,9);
         const r = document.createElement('tr');
-        r.className = 'subtotal-row';
-        const {ltA,ltB,lbA,lbB} = calcHalfPoints(0,9);
-        r.innerHTML = `
+        r.className='subtotal-row';
+        r.innerHTML=`
           <td colspan="2" style="text-align:left;padding-left:8px">
             <div class="sub-label">OUT</div>
-            <div style="color:var(--team-a);font-size:11px">A: LT ${ltA} LB ${lbA}</div>
-            <div style="color:var(--team-b);font-size:11px">B: LT ${ltB} LB ${lbB}</div>
+            <div style="color:var(--team-a);font-size:11px">A: LT ${pts.ltA} LB ${pts.lbA}</div>
+            <div style="color:var(--team-b);font-size:11px">B: LT ${pts.ltB} LB ${pts.lbB}</div>
           </td>
-          <td colspan="4">
-            ${renderOutStrokes()}
-          </td>`;
+          <td colspan="4" style="font-size:11px">${renderHalfStrokes(0,9)}</td>`;
         tbody.appendChild(r);
       }
 
-      const ltW = ltWinner(h);
-      const lbW = lbWinner(h);
+      const ltW=ltWinner(h), lbW=lbWinner(h);
+      const ltPts=ltPtsForHole(h);
+
+      // Press button state
+      let pressBtnClass = 'press-hole-btn';
+      let pressBtnLabel = '🔥 Press';
+      if (thisPressOn) { pressBtnClass+=' pressed'; pressBtnLabel='🔥 Pressed!'; }
+      else if (alreadyPressedElsewhere) { pressBtnClass+=' disabled'; }
 
       const tr = document.createElement('tr');
-      tr.innerHTML = `
+      if (thisPressOn) tr.style.background='#fff7ed';
+      tr.innerHTML=`
         <td>
           <div class="hole-info">
             <span class="hole-num">${hNum}</span>
             <span class="par-chip ${parClass(par)}">P${par}</span>
           </div>
         </td>
-        ${[0,1,2,3].map(p => `
+        ${[0,1,2,3].map(p=>`
           <td>
             <input type="number" inputmode="numeric" min="1" max="15"
-              class="score-input ${scoreClass(scores[h][p], par)}"
-              id="s-${h}-${p}"
-              value="${scores[h][p] != null ? scores[h][p] : ''}"
+              class="score-input ${scoreClass(scores[h][p],par)}"
+              value="${scores[h][p]??''}"
               onchange="setScore(${h},${p},this.value)"
-              onfocus="this.select()"
-            />
-          </td>
-        `).join('')}
+              onfocus="this.select()" />
+          </td>`).join('')}
         <td class="result-cell">
-          ${ltW ? `<div class="${ltW==='a'?'res-a':ltW==='b'?'res-b':'res-tie'}">LT:${ltW.toUpperCase()}</div>` : ''}
-          ${lbW ? `<div class="${lbW==='a'?'res-a':lbW==='b'?'res-b':'res-tie'}">LB:${lbW.toUpperCase()}</div>` : ''}
+          ${ltW?`<div class="${ltW==='a'?'res-a':ltW==='b'?'res-b':'res-tie'}">LT:${ltW==='tie'?'TIE':ltW.toUpperCase()}${thisPressOn?' ×2':''}</div>`:''}
+          ${lbW?`<div class="${lbW==='a'?'res-a':lbW==='b'?'res-b':'res-tie'}">LB:${lbW==='tie'?'TIE':lbW.toUpperCase()}</div>`:''}
+          <button class="${pressBtnClass}"
+            onclick="${alreadyPressedElsewhere?'':'toggleHolePress('+h+')'}"
+          >${pressBtnLabel}</button>
         </td>`;
       tbody.appendChild(tr);
 
       // CTP row for par 3s
       if (ip3) {
-        const ctpVal = ctp[hNum];
-        const ctpRow = document.createElement('tr');
-        ctpRow.className = 'ctp-row';
-        ctpRow.innerHTML = `
+        const ctpVal=ctp[hNum];
+        const ctpRow=document.createElement('tr');
+        ctpRow.className='ctp-row';
+        ctpRow.innerHTML=`
           <td colspan="6">
             <div class="ctp-inner">
               <span class="ctp-label">📍 CTP +1:</span>
@@ -725,191 +582,183 @@
       }
     }
 
-    // IN + TOTAL subtotal
-    const {ltA:inLtA,ltB:inLtB,lbA:inLbA,lbB:inLbB} = calcHalfPoints(9,18);
-    const inRow = document.createElement('tr');
-    inRow.className = 'subtotal-row';
-    inRow.innerHTML = `
+    // IN subtotal
+    const inPts=calcHalfPoints(9,18);
+    const inRow=document.createElement('tr');
+    inRow.className='subtotal-row';
+    inRow.innerHTML=`
       <td colspan="2" style="text-align:left;padding-left:8px">
         <div class="sub-label">IN</div>
-        <div style="color:var(--team-a);font-size:11px">A: LT ${inLtA} LB ${inLbA}</div>
-        <div style="color:var(--team-b);font-size:11px">B: LT ${inLtB} LB ${inLbB}</div>
+        <div style="color:var(--team-a);font-size:11px">A: LT ${inPts.ltA} LB ${inPts.lbA}</div>
+        <div style="color:var(--team-b);font-size:11px">B: LT ${inPts.ltB} LB ${inPts.lbB}</div>
       </td>
-      <td colspan="4">${renderInStrokes()}</td>`;
+      <td colspan="4" style="font-size:11px">${renderHalfStrokes(9,18)}</td>`;
     tbody.appendChild(inRow);
 
     // TOTAL row
-    const totRow = document.createElement('tr');
-    totRow.className = 'subtotal-row';
-    const allStrokes = renderTotalStrokes();
-    totRow.innerHTML = `
-      <td colspan="2" style="text-align:left;padding-left:8px">
-        <div class="sub-label">TOTAL</div>
-      </td>
-      <td colspan="4">${allStrokes}</td>`;
+    const totRow=document.createElement('tr');
+    totRow.className='subtotal-row';
+    totRow.innerHTML=`
+      <td colspan="2" style="text-align:left;padding-left:8px"><div class="sub-label">TOTAL</div></td>
+      <td colspan="4" style="font-size:11px">${renderTotalStrokes()}</td>`;
     tbody.appendChild(totRow);
 
+    buildPressSummary();
     buildCTPSummary();
   }
 
-  function calcHalfPoints(start, end) {
+  function calcHalfPoints(start,end) {
     let ltA=0,ltB=0,lbA=0,lbB=0;
     for (let h=start;h<end;h++) {
-      const w = ltWinner(h);
-      if (w==='a') ltA+=2; else if (w==='b') ltB+=2;
-      const w2 = lbWinner(h);
-      if (w2==='a') lbA+=1; else if (w2==='b') lbB+=1;
+      const ltp=ltPtsForHole(h); ltA+=ltp.a; ltB+=ltp.b;
+      const w2=lbWinner(h); if(w2==='a') lbA+=1; else if(w2==='b') lbB+=1;
     }
     return {ltA,ltB,lbA,lbB};
   }
 
-  function renderOutStrokes() {
-    return [0,1,2,3].map(p => {
-      const total = scores.slice(0,9).reduce((s,row) => s + (row[p]||0), 0);
-      const entered = scores.slice(0,9).filter(row => row[p]!=null).length;
-      return `<span style="font-size:11px;color:${p<2?'var(--team-a)':'var(--team-b)'}">${entered>0?total:'—'}</span>`;
-    }).join(' ');
-  }
-  function renderInStrokes() {
-    return [0,1,2,3].map(p => {
-      const total = scores.slice(9,18).reduce((s,row) => s + (row[p]||0), 0);
-      const entered = scores.slice(9,18).filter(row => row[p]!=null).length;
-      return `<span style="font-size:11px;color:${p<2?'var(--team-a)':'var(--team-b)'}">${entered>0?total:'—'}</span>`;
+  function renderHalfStrokes(start,end) {
+    return [0,1,2,3].map(p=>{
+      const total=scores.slice(start,end).reduce((s,row)=>s+(row[p]||0),0);
+      const entered=scores.slice(start,end).filter(row=>row[p]!=null).length;
+      return `<span style="color:${p<2?'var(--team-a)':'var(--team-b)'}">${entered>0?total:'—'}</span>`;
     }).join(' ');
   }
   function renderTotalStrokes() {
-    return [0,1,2,3].map(p => {
-      const total = scores.reduce((s,row) => s + (row[p]||0), 0);
-      const entered = scores.filter(row => row[p]!=null).length;
-      return `<span style="font-size:11px;font-weight:800;color:${p<2?'var(--team-a)':'var(--team-b)'}">${entered>0?total:'—'}</span>`;
+    return [0,1,2,3].map(p=>{
+      const total=scores.reduce((s,row)=>s+(row[p]||0),0);
+      const entered=scores.filter(row=>row[p]!=null).length;
+      return `<span style="font-weight:800;color:${p<2?'var(--team-a)':'var(--team-b)'}">${entered>0?total:'—'}</span>`;
     }).join(' ');
   }
 
-  function buildCTPSummary() {
-    const grid = document.getElementById('ctp-sum-grid');
-    grid.innerHTML = '';
-    PAR3S.forEach(h => {
-      const v = ctp[h];
-      let w = '<span style="color:var(--text-muted)">—</span>';
-      if (v==='a') w = '<span class="ctp-sum-winner-a">Team A</span>';
-      else if (v==='b') w = '<span class="ctp-sum-winner-b">Team B</span>';
-      else if (v==='tie') w = '<span class="ctp-sum-winner-tie">Split</span>';
-      grid.innerHTML += `
-        <div class="ctp-sum-item">
-          <div class="ctp-sum-hole">Hole ${h} (Par 3)</div>
-          <div>${w}</div>
-        </div>`;
+  function buildPressSummary() {
+    ['front','back'].forEach(half=>{
+      const used=pressUsedInHalf(half);
+      const el=document.getElementById(`press-${half}-status`);
+      if (used===-1) {
+        el.innerHTML='<span class="press-avail">Available ✓</span>';
+      } else {
+        const hNum=used+1;
+        const w=ltWinner(used);
+        const pts=ltPtsForHole(used);
+        let result='pending';
+        if (w==='a') result=`<span style="color:var(--team-a);font-weight:700">Team A +${pts.a} pts</span>`;
+        else if (w==='b') result=`<span style="color:var(--team-b);font-weight:700">Team B +${pts.b} pts</span>`;
+        else if (w==='tie') result='<span style="color:var(--green);font-weight:700">Tie (0 pts)</span>';
+        else result='<span style="color:var(--text-muted)">Score pending</span>';
+        el.innerHTML=`<span class="press-used">Used — Hole ${hNum}</span><br>${result}`;
+      }
     });
   }
 
-  // ── BUILD PLAYER SCORECARDS ──
-  function buildPlayerCards() {
-    buildTeamCard('a', [0,1], ['Ben','Tucker'], 'player-a-body');
-    buildTeamCard('b', [2,3], ['Tyler','Scott'], 'player-b-body');
+  function buildCTPSummary() {
+    const grid=document.getElementById('ctp-sum-grid');
+    grid.innerHTML='';
+    PAR3S.forEach(h=>{
+      const v=ctp[h];
+      let w='<span style="color:var(--text-muted)">—</span>';
+      if (v==='a') w='<span class="ctp-sum-winner-a">Team A</span>';
+      else if (v==='b') w='<span class="ctp-sum-winner-b">Team B</span>';
+      else if (v==='tie') w='<span class="ctp-sum-winner-tie">Split</span>';
+      grid.innerHTML+=`<div class="ctp-sum-item"><div class="ctp-sum-hole">Hole ${h} (Par 3)</div><div>${w}</div></div>`;
+    });
   }
 
-  function buildTeamCard(team, idxs, names, bodyId) {
-    const tbody = document.getElementById(bodyId);
-    tbody.innerHTML = '';
-    let parTotOut=0, parTotIn=0;
-    let p1Out=0,p1In=0,p2Out=0,p2In=0,bestOut=0,bestIn=0;
-    let p1OutE=0,p1InE=0,p2OutE=0,p2InE=0,bestOutE=0,bestInE=0;
+  // ── PLAYER CARDS ──
+  function buildPlayerCards() {
+    buildTeamCard('a',[0,1],'player-a-body');
+    buildTeamCard('b',[2,3],'player-b-body');
+  }
 
-    for (let h=0; h<18; h++) {
-      const hNum=h+1, par=PARS[h];
-      const s1=scores[h][idxs[0]], s2=scores[h][idxs[1]];
-      const best = (s1!=null&&s2!=null)?Math.min(s1,s2):(s1??s2);
-      const bestToPar = best != null ? best-par : null;
+  function buildTeamCard(team,idxs,bodyId) {
+    const tbody=document.getElementById(bodyId);
+    tbody.innerHTML='';
+    let parOut=0,parIn=0;
+    let p1Out=0,p2Out=0,bestOut=0,p1OutE=0,p2OutE=0,bestOutE=0;
+    let p1In=0,p2In=0,bestIn=0,p1InE=0,p2InE=0,bestInE=0;
+
+    for (let h=0;h<18;h++) {
+      const hNum=h+1,par=PARS[h];
+      const s1=scores[h][idxs[0]],s2=scores[h][idxs[1]];
+      const best=(s1!=null&&s2!=null)?Math.min(s1,s2):(s1??s2);
+      const btp=best!=null?best-par:null;
 
       if (h===9) {
-        // OUT subtotal
-        const r = document.createElement('tr');
-        r.className = 'player-sub-row';
-        const d1=p1Out-parTotOut, d2=p2Out-parTotOut, db=bestOut-parTotOut;
-        r.innerHTML = `
-          <td>OUT</td><td>${parTotOut}</td>
-          <td>${p1OutE>0?p1Out:'—'} ${p1OutE>0?toParLabel(p1Out,parTotOut):''}</td>
-          <td>${p2OutE>0?p2Out:'—'} ${p2OutE>0?toParLabel(p2Out,parTotOut):''}</td>
+        const r=document.createElement('tr'); r.className='player-sub-row';
+        r.innerHTML=`<td>OUT</td><td>${parOut}</td>
+          <td>${p1OutE>0?p1Out:'—'} ${p1OutE>0?toParLabel(p1Out,parOut):''}</td>
+          <td>${p2OutE>0?p2Out:'—'} ${p2OutE>0?toParLabel(p2Out,parOut):''}</td>
           <td>${bestOutE>0?bestOut:'—'}</td>
-          <td>${bestOutE>0?toParLabel(bestOut,parTotOut):''}</td>`;
+          <td>${bestOutE>0?toParLabel(bestOut,parOut):''}</td>`;
         tbody.appendChild(r);
-        parTotIn=0; p1In=0; p2In=0; bestIn=0; p1InE=0; p2InE=0; bestInE=0;
       }
 
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${hNum}</td>
-        <td>${par}</td>
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${hNum}</td><td>${par}</td>
         <td>${s1!=null?`<span class="score-pill ${pillClass(s1,par)}">${s1}</span>`:'—'}</td>
         <td>${s2!=null?`<span class="score-pill ${pillClass(s2,par)}">${s2}</span>`:'—'}</td>
         <td>${best!=null?`<span class="score-pill ${pillClass(best,par)}">${best}</span>`:'—'}</td>
-        <td>${bestToPar!=null?(bestToPar<0?`<span style="color:#16a34a;font-weight:700">${bestToPar}</span>`:bestToPar>0?`<span style="color:var(--red)">+${bestToPar}</span>`:`<span style="color:var(--gray)">E</span>`):'—'}</td>`;
+        <td>${btp!=null?(btp<0?`<span style="color:#16a34a;font-weight:700">${btp}</span>`:btp>0?`<span style="color:var(--red)">+${btp}</span>`:`<span style="color:var(--gray)">E</span>`):'—'}</td>`;
       tbody.appendChild(tr);
 
-      // accumulate
       if (h<9) {
-        parTotOut+=par;
+        parOut+=par;
         if(s1!=null){p1Out+=s1;p1OutE++;}
         if(s2!=null){p2Out+=s2;p2OutE++;}
         if(best!=null){bestOut+=best;bestOutE++;}
       } else {
-        parTotIn+=par;
+        parIn+=par;
         if(s1!=null){p1In+=s1;p1InE++;}
         if(s2!=null){p2In+=s2;p2InE++;}
         if(best!=null){bestIn+=best;bestInE++;}
       }
     }
 
-    // IN subtotal
-    const inR = document.createElement('tr');
-    inR.className = 'player-sub-row';
-    inR.innerHTML = `
-      <td>IN</td><td>${parTotIn}</td>
-      <td>${p1InE>0?p1In:'—'} ${p1InE>0?toParLabel(p1In,parTotIn):''}</td>
-      <td>${p2InE>0?p2In:'—'} ${p2InE>0?toParLabel(p2In,parTotIn):''}</td>
+    const inR=document.createElement('tr'); inR.className='player-sub-row';
+    inR.innerHTML=`<td>IN</td><td>${parIn}</td>
+      <td>${p1InE>0?p1In:'—'} ${p1InE>0?toParLabel(p1In,parIn):''}</td>
+      <td>${p2InE>0?p2In:'—'} ${p2InE>0?toParLabel(p2In,parIn):''}</td>
       <td>${bestInE>0?bestIn:'—'}</td>
-      <td>${bestInE>0?toParLabel(bestIn,parTotIn):''}</td>`;
+      <td>${bestInE>0?toParLabel(bestIn,parIn):''}</td>`;
     tbody.appendChild(inR);
 
-    // TOTAL
-    const p1Tot=p1Out+p1In, p2Tot=p2Out+p2In, bestTot=bestOut+bestIn;
-    const parTot=parTotOut+parTotIn;
-    const totR = document.createElement('tr');
-    totR.className = 'player-sub-row';
-    totR.style.fontSize='13px';
-    totR.innerHTML = `
-      <td>TOT</td><td>72</td>
-      <td>${(p1OutE+p1InE)>0?p1Tot:'—'} ${(p1OutE+p1InE)>0?toParLabel(p1Tot,72):''}</td>
-      <td>${(p2OutE+p2InE)>0?p2Tot:'—'} ${(p2OutE+p2InE)>0?toParLabel(p2Tot,72):''}</td>
-      <td>${(bestOutE+bestInE)>0?bestTot:'—'}</td>
-      <td>${(bestOutE+bestInE)>0?toParLabel(bestTot,72):''}</td>`;
+    const p1T=p1Out+p1In,p2T=p2Out+p2In,bT=bestOut+bestIn;
+    const totR=document.createElement('tr'); totR.className='player-sub-row'; totR.style.fontSize='13px';
+    totR.innerHTML=`<td>TOT</td><td>72</td>
+      <td>${(p1OutE+p1InE)>0?p1T:'—'} ${(p1OutE+p1InE)>0?toParLabel(p1T,72):''}</td>
+      <td>${(p2OutE+p2InE)>0?p2T:'—'} ${(p2OutE+p2InE)>0?toParLabel(p2T,72):''}</td>
+      <td>${(bestOutE+bestInE)>0?bT:'—'}</td>
+      <td>${(bestOutE+bestInE)>0?toParLabel(bT,72):''}</td>`;
     tbody.appendChild(totR);
   }
 
-  // ── BUILD BETTING TAB ──
+  // ── BETTING TAB ──
   function buildBettingTab() {
-    // Calc everything
-    let ltA=0,ltB=0,lbA=0,lbB=0;
+    let ltA=0,ltB=0,lbA=0,lbB=0,pressA=0,pressB=0;
     for (let h=0;h<18;h++) {
-      const w=ltWinner(h); if(w==='a') ltA+=2; else if(w==='b') ltB+=2;
+      const ltp=ltPtsForHole(h); ltA+=ltp.a; ltB+=ltp.b;
+      // track press bonus separately for display
+      if (pressedHole[h]) {
+        const w=ltWinner(h);
+        if(w==='a') pressA+=2; else if(w==='b') pressB+=2;
+      }
       const w2=lbWinner(h); if(w2==='a') lbA+=1; else if(w2==='b') lbB+=1;
     }
-    const be = countBirdiesEagles();
-    const bonA = be.a.birdie*1 + be.a.eagle*3;
-    const bonB = be.b.birdie*1 + be.b.eagle*3;
-    const ctpPts = calcCTP();
-    const totA = ltA+lbA+bonA+ctpPts.a;
-    const totB = ltB+lbB+bonB+ctpPts.b;
+    const be=countBirdiesEagles();
+    const bonA=be.a.birdie+be.a.eagle*3;
+    const bonB=be.b.birdie+be.b.eagle*3;
+    const ctpPts=calcCTP();
+    const totA=ltA+lbA+bonA+ctpPts.a;
+    const totB=ltB+lbB+bonB+ctpPts.b;
 
-    // Scoreboard
-    document.getElementById('total-a').textContent = fmt(totA);
-    document.getElementById('total-b').textContent = fmt(totB);
-    document.getElementById('breakdown-a').innerHTML =
-      `LT: ${ltA} pts &nbsp;·&nbsp; LB: ${lbA} pts<br>Bonus: ${bonA} pts &nbsp;·&nbsp; CTP: ${fmt(ctpPts.a)} pts`;
-    document.getElementById('breakdown-b').innerHTML =
-      `LT: ${ltB} pts &nbsp;·&nbsp; LB: ${lbB} pts<br>Bonus: ${bonB} pts &nbsp;·&nbsp; CTP: ${fmt(ctpPts.b)} pts`;
+    document.getElementById('total-a').textContent=fmt(totA);
+    document.getElementById('total-b').textContent=fmt(totB);
+    document.getElementById('breakdown-a').innerHTML=
+      `LT: ${ltA} pts (incl. press) · LB: ${lbA} pts<br>Bonus: ${bonA} pts · CTP: ${fmt(ctpPts.a)} pts`;
+    document.getElementById('breakdown-b').innerHTML=
+      `LT: ${ltB} pts (incl. press) · LB: ${lbB} pts<br>Bonus: ${bonB} pts · CTP: ${fmt(ctpPts.b)} pts`;
 
-    const banner = document.getElementById('winner-banner');
+    const banner=document.getElementById('winner-banner');
     if (totA>0||totB>0) {
       banner.classList.add('show');
       if (totA>totB) banner.textContent='🏆 Team A Leads — Ben & Tucker';
@@ -917,79 +766,90 @@
       else banner.textContent='🤝 All Square';
     } else { banner.classList.remove('show'); }
 
-    // Breakdown table
-    const bBody = document.getElementById('breakdown-body');
-    const rows = [
-      ['🥇 Low Total','2 pts/hole',ltA,ltB],
+    // Base LT without press bonus
+    const baseLtA=ltA-pressA, baseLtB=ltB-pressB;
+    const bBody=document.getElementById('breakdown-body');
+    const rows=[
+      ['🥇 Low Total (base)','2 pts/hole',baseLtA,baseLtB],
+      ['🔥 Press Bonus','×2 LT on pressed hole',pressA,pressB],
       ['🥈 Low Ball','1 pt/hole (best ball)',lbA,lbB],
       [`🐦 Birdies (${be.a.birdie} vs ${be.b.birdie})`,'1 pt each',be.a.birdie,be.b.birdie],
       [`🦅 Eagles (${be.a.eagle} vs ${be.b.eagle})`,'3 pts each',be.a.eagle*3,be.b.eagle*3],
-      [`📍 CTP (par 3s)`,'1 pt per hole',fmt(ctpPts.a),fmt(ctpPts.b)],
+      ['📍 CTP (par 3s)','1 pt per hole',fmt(ctpPts.a),fmt(ctpPts.b)],
     ];
-    bBody.innerHTML = rows.map(([cat,rule,a,b]) => `
+    bBody.innerHTML=rows.map(([cat,rule,a,b])=>`
       <tr>
         <td>${cat}<br><span style="font-size:10px;color:var(--text-muted)">${rule}</span></td>
-        <td class="pts-a">${a}</td>
-        <td class="pts-b">${b}</td>
+        <td class="pts-a">${a}</td><td class="pts-b">${b}</td>
         <td style="font-size:10px;color:var(--text-muted)">${rule}</td>
-      </tr>`).join('') +
-      `<tr class="total-row">
-        <td>TOTAL</td>
-        <td class="pts-a">${fmt(totA)}</td>
-        <td class="pts-b">${fmt(totB)}</td>
-        <td></td>
-      </tr>`;
+      </tr>`).join('')+
+      `<tr class="total-row"><td>TOTAL</td><td class="pts-a">${fmt(totA)}</td><td class="pts-b">${fmt(totB)}</td><td></td></tr>`;
 
     // Hole-by-hole
-    const hBody = document.getElementById('hole-betting-body');
-    hBody.innerHTML = '';
+    const hBody=document.getElementById('hole-betting-body');
+    hBody.innerHTML='';
     for (let h=0;h<18;h++) {
-      const hNum=h+1, par=PARS[h], ip3=PAR3S.has(hNum);
-      const ltW=ltWinner(h), lbW=lbWinner(h);
-      const ctpV = ip3 ? ctp[hNum] : null;
-      const ltCell = ltW ? `<span class="${ltW==='a'?'pts-a':ltW==='b'?'pts-b':''}">${ltW==='tie'?'TIE':ltW.toUpperCase()}</span>` : '—';
-      const lbCell = lbW ? `<span class="${lbW==='a'?'pts-a':lbW==='b'?'pts-b':''}">${lbW==='tie'?'TIE':lbW.toUpperCase()}</span>` : '—';
-      const ctpCell = ip3 ? (ctpV ? `<span class="${ctpV==='a'?'pts-a':ctpV==='b'?'pts-b':''}">${ctpV==='tie'?'SPL':ctpV.toUpperCase()}</span>` : '📍?') : '–';
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
+      const hNum=h+1,par=PARS[h],ip3=PAR3S.has(hNum);
+      const ltW=ltWinner(h),lbW=lbWinner(h);
+      const ltp=ltPtsForHole(h);
+      const ctpV=ip3?ctp[hNum]:null;
+      const isPress=pressedHole[h];
+      const ltPtsDisp = ltW ? (ltW==='tie'?'TIE':`${ltW.toUpperCase()} +${ltW==='a'?ltp.a:ltp.b}`) : '—';
+      const ltClass = ltW==='a'?'pts-a':ltW==='b'?'pts-b':'';
+      const lbCell=lbW?`<span class="${lbW==='a'?'pts-a':lbW==='b'?'pts-b':''}">${lbW==='tie'?'TIE':lbW.toUpperCase()+' +1'}</span>`:'—';
+      const ctpCell=ip3?(ctpV?`<span class="${ctpV==='a'?'pts-a':ctpV==='b'?'pts-b':''}">${ctpV==='tie'?'SPL':ctpV.toUpperCase()}</span>`:'📍?'):'–';
+      const pressCell=isPress?`<span style="color:#f97316;font-weight:700">×2 LT</span>`:'–';
+      const tr=document.createElement('tr');
+      if (isPress) tr.style.background='#fff7ed';
+      tr.innerHTML=`
         <td><strong>${hNum}</strong> <span style="font-size:10px;color:var(--text-muted)">P${par}</span></td>
-        <td>${ltCell}</td>
+        <td><span class="${ltClass}">${ltPtsDisp}</span>${isPress?'<span style="color:#f97316;font-size:9px;margin-left:2px">🔥</span>':''}</td>
         <td>${lbCell}</td>
-        <td>${ctpCell}</td>`;
+        <td>${ctpCell}</td>
+        <td>${pressCell}</td>`;
       hBody.appendChild(tr);
 
       if (hNum===9) {
-        const {ltA:oLtA,ltB:oLtB,lbA:oLbA,lbB:oLbB} = calcHalfPoints(0,9);
-        const sr = document.createElement('tr');
-        sr.style.background='var(--green-light)';sr.style.fontWeight='700';sr.style.fontSize='11px';
-        sr.innerHTML=`<td style="color:var(--green)">OUT</td><td style="color:var(--team-a)">${oLtA}A/${oLtB}B</td><td style="color:var(--team-a)">${oLbA}A/${oLbB}B</td><td>—</td>`;
+        const p=calcHalfPoints(0,9);
+        const sr=document.createElement('tr');
+        sr.style.cssText='background:var(--green-light);font-weight:700;font-size:11px';
+        sr.innerHTML=`<td style="color:var(--green)">OUT</td><td style="color:var(--team-a)">${p.ltA}A / ${p.ltB}B</td><td style="color:var(--team-a)">${p.lbA}A / ${p.lbB}B</td><td>—</td><td>—</td>`;
         hBody.appendChild(sr);
       }
     }
-    const {ltA:iLtA,ltB:iLtB,lbA:iLbA,lbB:iLbB} = calcHalfPoints(9,18);
-    const inSr = document.createElement('tr');
-    inSr.style.background='var(--green-light)';inSr.style.fontWeight='700';inSr.style.fontSize='11px';
-    inSr.innerHTML=`<td style="color:var(--green)">IN</td><td style="color:var(--team-a)">${iLtA}A/${iLtB}B</td><td style="color:var(--team-a)">${iLbA}A/${iLbB}B</td><td>—</td>`;
+    const ip=calcHalfPoints(9,18);
+    const inSr=document.createElement('tr');
+    inSr.style.cssText='background:var(--green-light);font-weight:700;font-size:11px';
+    inSr.innerHTML=`<td style="color:var(--green)">IN</td><td style="color:var(--team-a)">${ip.ltA}A / ${ip.ltB}B</td><td style="color:var(--team-a)">${ip.lbA}A / ${ip.lbB}B</td><td>—</td><td>—</td>`;
     hBody.appendChild(inSr);
   }
 
-  // ── EVENT HANDLERS ──
-  function setScore(h, p, val) {
-    const n = parseInt(val);
-    scores[h][p] = isNaN(n) || n < 1 ? null : n;
+  // ── EVENTS ──
+  function setScore(h,p,val) {
+    const n=parseInt(val);
+    scores[h][p]=isNaN(n)||n<1?null:n;
     refresh();
   }
 
-  function setCTP(hole, team) {
-    ctp[hole] = ctp[hole]===team ? null : team;
+  function setCTP(hole,team) {
+    ctp[hole]=ctp[hole]===team?null:team;
     refresh();
   }
 
-  function togglePress(team, idx) {
-    press[team][idx] = !press[team][idx];
-    const el = document.getElementById(`press-${team}-${idx}`);
-    el.textContent = press[team][idx] ? '✓' : '';
-    el.className = 'press-box' + (press[team][idx] ? ` used-${team}` : '');
+  function toggleHolePress(h) {
+    const half=h<9?'front':'back';
+    const used=pressUsedInHalf(half);
+    // If this hole is already pressed, un-press it
+    if (pressedHole[h]) {
+      pressedHole[h]=false;
+      refresh();
+      return;
+    }
+    // If another hole in this half is already pressed, block
+    if (used!==-1) return;
+    // Otherwise press this hole
+    pressedHole[h]=true;
+    refresh();
   }
 
   function refresh() {
@@ -998,27 +858,21 @@
     buildBettingTab();
   }
 
-  function showTab(id) {
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  function showTab(id,btn) {
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
     document.getElementById('tab-'+id).classList.add('active');
-    event.target.classList.add('active');
+    btn.classList.add('active');
   }
 
   function confirmReset() {
     if (confirm('Reset the entire scorecard? This cannot be undone.')) {
-      for (let h=0;h<18;h++) scores[h]=[null,null,null,null];
-      Object.keys(ctp).forEach(k => ctp[k]=null);
-      press.a=[false,false]; press.b=[false,false];
-      ['a','b'].forEach(t=>[0,1].forEach(i=>{
-        const el=document.getElementById(`press-${t}-${i}`);
-        el.textContent=''; el.className='press-box';
-      }));
+      for (let h=0;h<18;h++){scores[h]=[null,null,null,null];pressedHole[h]=false;}
+      Object.keys(ctp).forEach(k=>ctp[k]=null);
       refresh();
     }
   }
 
-  // ── INIT ──
   refresh();
 </script>
 </body>
